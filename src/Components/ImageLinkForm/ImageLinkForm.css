@@ -1,0 +1,19 @@
+.form {
+    width: 700px;
+    background:
+linear-gradient(-45deg, #FF5EDF 25%, transparent 25%, transparent 75%, #04C8DE 75%, #04C8DE) 0 0,
+linear-gradient(-45deg, #04C8DE 25%, transparent 25%, transparent 75%, #FF5EDF 75%, #FF5EDF) 1em 1em,
+linear-gradient(45deg, #04C8DE 17%, transparent 17%, transparent 25%, #04C8DE 25%, #04C8DE 36%, transparent 36%, transparent 64%, #04C8DE 64%, #04C8DE 75%, transparent 75%, transparent 83%, #04C8DE 83%) 1em 1em;
+background: linear-gradient(89deg, #FF5EDF 0%, #04C8DE 100%);
+background-size: 2em 2em;
+}
+
+button {
+    border: none;
+    transition: all 3s;
+}
+
+button:focus {
+    outline: none !important;
+}
+
