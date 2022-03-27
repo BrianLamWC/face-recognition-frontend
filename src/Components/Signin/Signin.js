@@ -51,7 +51,7 @@ class Signin extends React.Component {
                                 type="email" 
                                 name="email-address"  
                                 id="email-address"
-                                onChange={this.onEmailChange}               //Pass the event to onChange function
+                                onChange={this.onEmailChange}               //Pass the event to onEmailChange function
                                 />
                             </div>
                             <div className="mv3">
