@@ -9,7 +9,7 @@ import Signin from './Components/Signin/Signin.js'
 import Register from './Components/Register/Register.js' 
 import './App.css';
 
-const particlesOptions = {
+const particlesOptions = {       //settings for Particles.js background
   particles: {
    number: {
      value: 25,
@@ -21,7 +21,7 @@ const particlesOptions = {
   }
 }
 
-const initalState = {
+const initalState = {      
     input: '',
     imageUrl: '',
     box: {},
@@ -45,7 +45,7 @@ class App extends React.Component {
     this.state = initalState;
   }
 
-  loadUser = (data) => {
+  loadUser = (data) => { //initialize the some properties required for user registration system and also website navigation (Sign in, Registration, Home)
     this.setState({user: {
       id: data.id,
       name: data.name,
@@ -121,14 +121,14 @@ class App extends React.Component {
     this.setState({route: route});
   }
 
-  render() {
+  render() { 
     return (
       <div className="App">
         <Particles className ='particles'
               params={particlesOptions}
             />
-        <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/>
-        { this.state.route === 'Home'
+        <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/> //Loads Navigation component and passes onRouteChange function
+        { this.state.route === 'Home'                                          //Load the follwing components if user has successfuly signed into the home page
           ? <div> 
             <Logo />
             <Rank name={this.state.user.name} entries={this.state.user.entries}/>
@@ -136,7 +136,7 @@ class App extends React.Component {
             <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} flag={this.state.flag}/>
           </div>
           : (
-            this.state.route === 'SignIn'
+            this.state.route === 'SignIn'                                     //Else load the following components
             ? <Signin  loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
             : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
           )
