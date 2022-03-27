@@ -128,14 +128,14 @@ class App extends React.Component {
               params={particlesOptions}
             />
         <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/> //Loads Navigation component and passes onRouteChange function
-        { this.state.route === 'Home'                                          //Load the follwing components if user has successfuly signed into the home page
+        { this.state.route === 'Home'                                                       //Load the follwing components if user has successfuly signed into the home page
           ? <div> 
-            <Logo />                                                          //logo component
-            <Rank name={this.state.user.name} entries={this.state.user.entries}/>    //component that keeps track of how many times you have submitted an entry
-            <ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>     //input bar component for image link 
-            <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} flag={this.state.flag}/>  //component to display the image provided by the link
+            <Logo />                                                                        //logo component
+            <Rank name={this.state.user.name} entries={this.state.user.entries}/>           //component that keeps track of how many times you have submitted an entry
+            <ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>           //input bar component for image link 
+            <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} flag={this.state.flag}/>        //component to display the image provided by the link
           </div>
-          : (                                                                     //Else load Signin component if route = 'SignIn' or loads Register component if not
+          : (                                                                                               //Else load Signin component if route = 'SignIn' or loads Register component if not
             this.state.route === 'SignIn'                                      
             ? <Signin  loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>          
             : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>     
