@@ -7,6 +7,7 @@ Heroku link : https://face-rekognition-front-end.herokuapp.com/ (in case the git
 test account (please wait for at least 10 seconds after pressing the sign-in button)
 
 email : testing@gmail.com 
+
 password : testing123
 
 
