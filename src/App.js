@@ -21,7 +21,7 @@ const particlesOptions = {       //settings for Particles.js background
   }
 }
 
-const initalState = {      
+const initalState = {      //initialize user information
     input: '',
     imageUrl: '',
     box: {},
@@ -45,7 +45,7 @@ class App extends React.Component {
     this.state = initalState;
   }
 
-  loadUser = (data) => { //initialize the some properties required for user registration system and also website navigation (Sign in, Registration, Home)
+  loadUser = (data) => {           //function to set user information (used in Sign in and Registration component)
     this.setState({user: {
       id: data.id,
       name: data.name,
@@ -55,7 +55,7 @@ class App extends React.Component {
     }})
   }
 
-  calculateFaceLocation = (data) => {
+  calculateFaceLocation = (data) => {                                             //calculate the size of box based on info given from API
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
     const image = document.getElementById('inputImage')
     const width = Number(image.width)
@@ -70,10 +70,10 @@ class App extends React.Component {
     }
   }
 
-  displayFaceBox = (box) => {
+  displayFaceBox = (box) => {                                
     console.log(box)
-    this.setState({flag: true});
-    this.setState({box: box});
+    this.setState({flag: true});              //confirms that box has been loaded with flag
+    this.setState({box: box});                //sets the state of the 'box' property
   }
 
   onInputChange = (event) => {
@@ -82,9 +82,9 @@ class App extends React.Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-    fetch('https://fathomless-chamber-64490.herokuapp.com/imageurl',{
-          method: 'post',
-            headers: {'Content-Type': 'application/json'},
+    fetch('https://fathomless-chamber-64490.herokuapp.com/imageurl',{  
+          method: 'post',               
+            headers: {'Content-Type': 'application/json'},                    //make a post request to the server with the image url to receive info for bouding box
             body: JSON.stringify({
               input: this.state.input
             })
@@ -95,18 +95,18 @@ class App extends React.Component {
       if (response) {
         fetch('https://fathomless-chamber-64490.herokuapp.com/image',{
           method: 'put',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json'},                  //if request successful make a put request to update entry count
             body: JSON.stringify({
               id: this.state.user.id
             })
           })
           .then(response => response.json())
           .then(count => {
-            this.setState(Object.assign(this.state.user, { entries: count}))
+            this.setState(Object.assign(this.state.user, { entries: count}))  
         })
         .catch(console.log)
       }
-      this.displayFaceBox(this.calculateFaceLocation(response))
+      this.displayFaceBox(this.calculateFaceLocation(response))            //passes obtained data from the post request to the functions to calculate and display the bounding box on the face
     })
     .catch(err => console.log(err));
   }
@@ -115,7 +115,7 @@ class App extends React.Component {
     if (route === 'SignOut') {
       this.setState(initalState)
       route = 'SignIn'
-    } else if (route === 'Home') {
+    } else if (route === 'Home') {                //set route to change what components to be displayed 
       this.setState({isSignedIn: true})
     }
     this.setState({route: route});
@@ -130,15 +130,15 @@ class App extends React.Component {
         <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/> //Loads Navigation component and passes onRouteChange function
         { this.state.route === 'Home'                                          //Load the follwing components if user has successfuly signed into the home page
           ? <div> 
-            <Logo />
-            <Rank name={this.state.user.name} entries={this.state.user.entries}/>
-            <ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-            <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} flag={this.state.flag}/>
+            <Logo />                                                          //logo component
+            <Rank name={this.state.user.name} entries={this.state.user.entries}/>    //component that keeps track of how many times you have submitted an entry
+            <ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>     //input bar component for image link 
+            <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} flag={this.state.flag}/>  //component to display the image provided by the link
           </div>
-          : (
-            this.state.route === 'SignIn'                                     //Else load the following components
-            ? <Signin  loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-            : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+          : (                                                                     //Else load Signin component if route = 'SignIn' or loads Register component if not
+            this.state.route === 'SignIn'                                      
+            ? <Signin  loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>          
+            : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>     
           )
         }
       </div>
