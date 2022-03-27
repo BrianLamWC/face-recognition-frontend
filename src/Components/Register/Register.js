@@ -4,7 +4,7 @@ class Register extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state= {
+        this.state= {                                                   //initialize credentials
             email: '',
             password: '',
             name: ''
@@ -15,7 +15,7 @@ class Register extends React.Component {
         this.setState({name: event.target.value})
     }
 
-    onEmailChange = (event) => {
+    onEmailChange = (event) => {                                    //functions to set credentials 
         this.setState({email: event.target.value})
     }
 
@@ -29,15 +29,15 @@ class Register extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 email: this.state.email,
-                password: this.state.password,
+                password: this.state.password,                //make a post request to server
                 name: this.state.name
             })
         })
-        .then(response => response.json())
+        .then(response => response.json())                 //converts .json response into an object
         .then(user => {
-            if (user.id) {
-                this.props.loadUser(user)
-                this.props.onRouteChange('Home');
+            if (user.id) {                                //verification done at server
+                this.props.loadUser(user)                 //if user id exists in the object then pass it to loadUser function and change route to 'Home'
+                this.props.onRouteChange('Home');         
             }
         })
         
@@ -57,7 +57,8 @@ class Register extends React.Component {
                                 type="text" 
                                 name="name"  
                                 id="name"
-                                onChange={this.onNameChange}/>
+                                onChange={this.onNameChange}    //Pass the event to onNameChange function
+                                />       
                             </div>
                             <div className="mt3">
                                 <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
@@ -66,7 +67,7 @@ class Register extends React.Component {
                                 type="email" 
                                 name="email-address"  
                                 id="email-address"
-                                onChange={this.onEmailChange}
+                                onChange={this.onEmailChange}    //Pass the event to onEmailChange function
                                 />
                             </div>
                             <div className="mv3">
@@ -76,13 +77,13 @@ class Register extends React.Component {
                                 type="password" 
                                 name="password"  
                                 id="password"
-                                onChange={this.onPasswordChange}
+                                onChange={this.onPasswordChange}   //Pass the event to onPasswordChange function
                                 />
                             </div>
                         </fieldset> 
                         <div className="">
                             <input 
-                            onClick={this.onSubmitSignIn}
+                            onClick={this.onSubmitSignIn}           //Calls onSubmitSignIn function that submits the current state of name, email and password
                             className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib bw1" 
                             type="submit" 
                             value="Register"
