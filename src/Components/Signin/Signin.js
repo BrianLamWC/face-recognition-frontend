@@ -4,7 +4,7 @@ class Signin extends React.Component {
     constructor(props) {
         super(props);
         this.state= {
-            signInEmail: '',
+            signInEmail: '',                  //initialize credentials
             signInPassword: ''
         }
     }
@@ -12,7 +12,7 @@ class Signin extends React.Component {
     onEmailChange = (event) => {
         this.setState({signInEmail: event.target.value})
     }
-
+                                                                //functions to set credentials 
     onPasswordChange = (event) => {
         this.setState({signInPassword: event.target.value})
     }
@@ -20,15 +20,15 @@ class Signin extends React.Component {
     onSubmitSignIn = () => {
         fetch('https://fathomless-chamber-64490.herokuapp.com/signin', {
             method: 'post',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json'},          //make a post request to server
             body: JSON.stringify({
                 email: this.state.signInEmail,
                 password: this.state.signInPassword
             })
         })
-        .then(response => response.json())
+        .then(response => response.json())                         //converts .json response into an object
         .then(user => {
-            if (user.id) {
+            if (user.id) {                                        //if user id exists in the object then pass it to loadUser function and change route to 'Home' 
                 this.props.loadUser(user);
                 this.props.onRouteChange('Home');
             }
@@ -51,7 +51,7 @@ class Signin extends React.Component {
                                 type="email" 
                                 name="email-address"  
                                 id="email-address"
-                                onChange={this.onEmailChange}
+                                onChange={this.onEmailChange}               //Pass the event to onChange function
                                 />
                             </div>
                             <div className="mv3">
@@ -61,20 +61,22 @@ class Signin extends React.Component {
                                 type="password" 
                                 name="password"  
                                 id="password"
-                                onChange={this.onPasswordChange}
+                                onChange={this.onPasswordChange}             //Pass the event to onPasswordChange function
                                 />
                             </div>
                         </fieldset> 
                         <div className="">
                             <input 
-                            onClick={this.onSubmitSignIn}
+                            onClick={this.onSubmitSignIn}                    //Calls onSubmitSignIn function that submits the current state of email and password
                             className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib bw1" 
                             type="submit" 
                             value="Login"
                             />
                         </div>
                         <div className="lh-copy mt3">
-                            <p onClick={() => onRouteChange('Register')} className="f6 link dim black db pointer">Register</p>
+                            <p 
+                            onClick={() => onRouteChange('Register')}        //Change route to 'Register'
+                            className="f6 link dim black db pointer">Register</p>  
                         </div>
                     </div>
                 </main>
