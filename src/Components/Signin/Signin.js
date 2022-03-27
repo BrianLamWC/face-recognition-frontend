@@ -27,9 +27,9 @@ class Signin extends React.Component {
             })
         })
         .then(response => response.json())                         //converts .json response into an object
-        .then(user => {
-            if (user.id) {                                        //if user id exists in the object then pass it to loadUser function and change route to 'Home' 
-                this.props.loadUser(user);
+        .then(user => {                                            //verfication done at server
+            if (user.id) {                                         //if user id exists in the object then pass it to loadUser function and change route to 'Home' 
+                this.props.loadUser(user);                        
                 this.props.onRouteChange('Home');
             }
         })
